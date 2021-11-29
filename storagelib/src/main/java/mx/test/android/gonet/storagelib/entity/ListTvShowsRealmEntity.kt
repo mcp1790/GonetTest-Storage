@@ -10,6 +10,6 @@ open class ListTvShowsRealmEntity: RealmObject(){
     var page: Int = -1
     var total_pages: Int = -1
     var total_results: Int = -1
-    var results: RealmList<TvShowRawRealmEntity>? = RealmList()
+    var results: RealmList<TvShowRawRealmEntity> = RealmList()
     var dates: DatesRealmEntity = DatesRealmEntity()
 }
