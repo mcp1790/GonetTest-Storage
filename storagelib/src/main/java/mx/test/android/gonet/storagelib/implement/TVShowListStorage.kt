@@ -26,7 +26,7 @@ class TVShowListStorage(val context: Context) : IDao<ListTvShowsModel> {
 
                 realmEntity?.let { list ->
                     emitter.onNext(ListTvShowStorageConverter.entityToModel(list))
-                } ?: emitter.onError(Throwable("GWHomeCarouselsStorage: Element is null"))
+                } ?: emitter.onError(Throwable("TVShowListStorage: Element is null"))
             }
             realm.close()
         }

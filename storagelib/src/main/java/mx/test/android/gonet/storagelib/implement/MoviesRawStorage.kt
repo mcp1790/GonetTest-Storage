@@ -29,7 +29,7 @@ class MoviesRawStorage(val context: Context) : IDao<MovieRawModel> {
 
                 realmEntity?.let { list ->
                     emitter.onNext(MovieRawStorageConverter.entityToModel(list))
-                } ?: emitter.onError(Throwable("GWHomeCarouselsStorage: Element is null"))
+                } ?: emitter.onError(Throwable("MoviesRawStorage: Element is null"))
             }
             realm.close()
         }
