@@ -2,6 +2,7 @@ package mx.test.android.gonet.storagelib.entity
 
 import io.realm.RealmList
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import mx.test.android.gonet.storagelib.entity.child.GenreRealmEntity
 
 open class TvShowRawRealmEntity: RealmObject()  {
@@ -9,6 +10,7 @@ open class TvShowRawRealmEntity: RealmObject()  {
     var first_air_date: String = ""
     var genre_ids: RealmList<Int> = RealmList()
     var genres: RealmList<GenreRealmEntity> = RealmList()
+    @PrimaryKey
     var id: Int = -1
     var name: String = ""
     var origin_country: RealmList<String> = RealmList()

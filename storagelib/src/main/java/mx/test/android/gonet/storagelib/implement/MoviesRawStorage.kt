@@ -25,7 +25,7 @@ class MoviesRawStorage(val context: Context) : IDao<MovieRawModel> {
 
             realm.executeTransaction { rlm ->
                 val realmEntity =
-                    rlm.where<MovieRawRealmEntity>().equalTo("page", id).findFirst()
+                    rlm.where<MovieRawRealmEntity>().equalTo("id", id).findFirst()
 
                 realmEntity?.let { list ->
                     emitter.onNext(MovieRawStorageConverter.entityToModel(list))
@@ -144,7 +144,7 @@ class MoviesRawStorage(val context: Context) : IDao<MovieRawModel> {
             val realm = RealmCore.getRxInstance(context)
             realm.executeTransaction { rlm ->
                 val realmEntity =
-                    rlm.where<ListMoviesRealmEntity>().equalTo("page", id).findFirst()
+                    rlm.where<ListMoviesRealmEntity>().equalTo("id", id).findFirst()
                 realmEntity?.deleteFromRealm()
             }
 

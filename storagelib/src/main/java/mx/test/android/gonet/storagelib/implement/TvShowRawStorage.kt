@@ -22,7 +22,7 @@ class TvShowRawStorage(val context: Context) : IDao<TvShowRawModel> {
 
             realm.executeTransaction { rlm ->
                 val realmEntity =
-                    rlm.where<TvShowRawRealmEntity>().equalTo("page", id).findFirst()
+                    rlm.where<TvShowRawRealmEntity>().equalTo("id", id).findFirst()
 
                 realmEntity?.let { list ->
                     emitter.onNext(TvShowRawStorageConverter.entityToModel(list))
@@ -119,7 +119,7 @@ class TvShowRawStorage(val context: Context) : IDao<TvShowRawModel> {
             val realm = RealmCore.getRxInstance(context)
             realm.executeTransaction { rlm ->
                 val realmEntity =
-                    rlm.where<ListMoviesRealmEntity>().equalTo("page", id).findFirst()
+                    rlm.where<ListMoviesRealmEntity>().equalTo("id", id).findFirst()
                 realmEntity?.deleteFromRealm()
             }
 
