@@ -1,0 +1,3 @@
+rootProject.name = "StorageLib"
+include ':app'
+include ':storagelib'
