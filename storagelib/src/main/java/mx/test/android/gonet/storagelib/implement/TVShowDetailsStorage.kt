@@ -23,7 +23,7 @@ import java.lang.Exception
 
 @SuppressLint("CheckResult")
 class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
-    override fun getRx(id: Int): Observable<TvShowDetailModel?> {
+    override fun getRx(id: Int): Observable<TvShowDetailModel> {
         return Observable.create { emitter ->
             val realm = RealmCore.getRxInstance(context = context)
 

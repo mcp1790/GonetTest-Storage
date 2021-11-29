@@ -22,7 +22,7 @@ import java.lang.Exception
 
 @SuppressLint("CheckResult")
 class MoviesRawStorage(val context: Context) : IDao<MovieRawModel> {
-    override fun getRx(id: Int): Observable<MovieRawModel?> {
+    override fun getRx(id: Int): Observable<MovieRawModel> {
         return Observable.create { emitter ->
             val realm = RealmCore.getRxInstance(context = context)
 
