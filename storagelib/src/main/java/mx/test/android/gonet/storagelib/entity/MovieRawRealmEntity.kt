@@ -12,7 +12,7 @@ open class MovieRawRealmEntity: RealmObject() {
     var adult: Boolean = false
     var backdrop_path: String = ""
     var budget: Int = -1
-    var genre_ids: List<Int> = listOf()
+    var genre_ids: RealmList<Int> = RealmList()
     var genres: RealmList<GenreRealmEntity> = RealmList()
     var homepage: String = ""
     @PrimaryKey

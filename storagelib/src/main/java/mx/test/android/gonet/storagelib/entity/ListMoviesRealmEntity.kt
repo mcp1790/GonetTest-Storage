@@ -11,5 +11,5 @@ open class ListMoviesRealmEntity: RealmObject(){
     var total_pages: Int = -1
     var total_results: Int = -1
     var results: RealmList<MovieRawRealmEntity> = RealmList()
-    var dates: DatesRealmEntity = DatesRealmEntity()
+    var dates: DatesRealmEntity? = null
 }

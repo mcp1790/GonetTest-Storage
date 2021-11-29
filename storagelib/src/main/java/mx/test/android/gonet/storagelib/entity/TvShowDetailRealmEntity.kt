@@ -17,9 +17,9 @@ open class TvShowDetailRealmEntity: RealmObject()  {
     var in_production: Boolean = false
     var languages: RealmList<String> = RealmList()
     var lastA_air_date: String = ""
-    var last_episode_to_air: LastEpisodeToAirRealmEntity = LastEpisodeToAirRealmEntity()
+    var last_episode_to_air: LastEpisodeToAirRealmEntity? = null
     var name: String = ""
-    var networks: List<NetworkRealmEntity> = RealmList()
+    var networks: RealmList<NetworkRealmEntity> = RealmList()
     var number_of_episodes: Int = -1
     var number_of_seasons: Int = -1
     var origin_country: RealmList<String> = RealmList()

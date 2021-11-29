@@ -11,5 +11,5 @@ open class ListTvShowsRealmEntity: RealmObject(){
     var total_pages: Int = -1
     var total_results: Int = -1
     var results: RealmList<TvShowRawRealmEntity> = RealmList()
-    var dates: DatesRealmEntity = DatesRealmEntity()
+    var dates: DatesRealmEntity? = null
 }
