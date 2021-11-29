@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.SpokenLanguageModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.SpokenLanguageRealmEntity
 
-object SpokenLanguagesConverter : IConverter<SpokenLanguageRealmEntity, SpokenLanguageModel> {
+object SpokenLanguagesStorageConverter : IStorageConverter<SpokenLanguageRealmEntity, SpokenLanguageModel> {
     override fun entityToModel(entityIn: SpokenLanguageRealmEntity?): SpokenLanguageModel {
         return entityIn?.let { entity ->
             SpokenLanguageModel(

@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.DatesModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.DatesRealmEntity
 
-object DatesConverter: IConverter<DatesRealmEntity, DatesModel> {
+object DatesStorageConverter: IStorageConverter<DatesRealmEntity, DatesModel> {
     override fun entityToModel(entityIn: DatesRealmEntity?): DatesModel {
         return entityIn?.let {
             DatesModel(

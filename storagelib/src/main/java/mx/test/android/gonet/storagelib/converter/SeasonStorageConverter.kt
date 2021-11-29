@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.SeasonModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.SeasonRealmEntity
 
-object SeasonConverter: IConverter<SeasonRealmEntity, SeasonModel> {
+object SeasonStorageConverter: IStorageConverter<SeasonRealmEntity, SeasonModel> {
     override fun entityToModel(entityIn: SeasonRealmEntity?): SeasonModel {
         return entityIn?.let { entity ->
             SeasonModel(

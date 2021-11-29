@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.LastEpisodeToAirModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.LastEpisodeToAirRealmEntity
 
-object LastEpisodeOnAirConverter: IConverter<LastEpisodeToAirRealmEntity, LastEpisodeToAirModel> {
+object LastEpisodeOnAirStorageConverter: IStorageConverter<LastEpisodeToAirRealmEntity, LastEpisodeToAirModel> {
     override fun entityToModel(entityIn: LastEpisodeToAirRealmEntity?): LastEpisodeToAirModel {
         return entityIn?.let { entity ->
             LastEpisodeToAirModel(

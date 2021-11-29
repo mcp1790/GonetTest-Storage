@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.NetworkModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.NetworkRealmEntity
 
-object NetworkModelConverter: IConverter<NetworkRealmEntity, NetworkModel> {
+object NetworkStorageConverter: IStorageConverter<NetworkRealmEntity, NetworkModel> {
     override fun entityToModel(entityIn: NetworkRealmEntity?): NetworkModel {
         return entityIn?.let { entity ->
             NetworkModel(

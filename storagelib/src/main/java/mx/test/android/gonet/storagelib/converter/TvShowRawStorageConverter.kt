@@ -2,18 +2,17 @@ package mx.test.android.gonet.storagelib.converter
 
 import io.realm.RealmList
 import mx.test.android.gonet.domainlib.models.TvShowRawModel
-import mx.test.android.gonet.domainlib.models.child.GenreModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.TvShowRawRealmEntity
 import mx.test.android.gonet.storagelib.entity.child.GenreRealmEntity
 
-object TvShowRawConverter: IConverter<TvShowRawRealmEntity, TvShowRawModel> {
+object TvShowRawStorageConverter: IStorageConverter<TvShowRawRealmEntity, TvShowRawModel> {
     override fun entityToModel(entityIn: TvShowRawRealmEntity?): TvShowRawModel {
         return entityIn?.let { entity ->
             TvShowRawModel(
                 backdropPath = entity.backdrop_path,
                 firstAirDate = entity.first_air_date,
-                genres = entity.genres.map { GenreConverter.entityToModel(it) },
+                genres = entity.genres.map { GenreStorageConverter.entityToModel(it) },
                 id = entity.id,
                 name = entity.name,
                 originCountry = entity.origin_country,
@@ -34,7 +33,7 @@ object TvShowRawConverter: IConverter<TvShowRawRealmEntity, TvShowRawModel> {
             first_air_date = modelIn.firstAirDate
             val genreRealmList: RealmList<GenreRealmEntity> = RealmList()
             modelIn.genres.forEach {
-                genreRealmList.add(GenreConverter.modelToEntity(it))
+                genreRealmList.add(GenreStorageConverter.modelToEntity(it))
             }
             genres = genreRealmList
             id = modelIn.id

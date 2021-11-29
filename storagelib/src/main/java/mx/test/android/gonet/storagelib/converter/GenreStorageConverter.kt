@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.GenreModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.GenreRealmEntity
 
-object GenreConverter: IConverter<GenreRealmEntity, GenreModel> {
+object GenreStorageConverter: IStorageConverter<GenreRealmEntity, GenreModel> {
     override fun entityToModel(entityIn: GenreRealmEntity?): GenreModel {
         return entityIn?.let {
             GenreModel(

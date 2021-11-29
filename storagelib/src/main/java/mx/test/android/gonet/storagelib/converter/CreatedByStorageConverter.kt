@@ -1,10 +1,10 @@
 package mx.test.android.gonet.storagelib.converter
 
 import mx.test.android.gonet.domainlib.models.child.CreatedByModel
-import mx.test.android.gonet.servicelib.converters.IConverter
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.child.CreatedByRealmEntity
 
-object CreatedByConverter: IConverter<CreatedByRealmEntity, CreatedByModel> {
+object CreatedByStorageConverter: IStorageConverter<CreatedByRealmEntity, CreatedByModel> {
     override fun entityToModel(entityIn: CreatedByRealmEntity?): CreatedByModel {
         return entityIn?.let { entity ->
             CreatedByModel(

@@ -2,21 +2,18 @@ package mx.test.android.gonet.storagelib.implement
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.realm.RealmList
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import mx.test.android.gonet.domainlib.models.ListMoviesModel
-import mx.test.android.gonet.domainlib.models.MovieRawModel
-import mx.test.android.gonet.storagelib.converter.DatesConverter
-import mx.test.android.gonet.storagelib.converter.ListMoviesConverter
-import mx.test.android.gonet.storagelib.converter.MovieRawConverter
+import mx.test.android.gonet.storagelib.converter.DatesStorageConverter
+import mx.test.android.gonet.storagelib.converter.ListMoviesStorageConverter
+import mx.test.android.gonet.storagelib.converter.MovieRawStorageConverter
 import mx.test.android.gonet.storagelib.entity.ListMoviesRealmEntity
 import mx.test.android.gonet.storagelib.entity.MovieRawRealmEntity
 import mx.test.android.gonet.storagelib.realmConfig.RealmCore
-import java.lang.Exception
 
 @SuppressLint("CheckResult")
 class MoviesListStorage(val context: Context) : IDao<ListMoviesModel> {
@@ -29,7 +26,7 @@ class MoviesListStorage(val context: Context) : IDao<ListMoviesModel> {
                     rlm.where<ListMoviesRealmEntity>().equalTo("page", id).findFirst()
 
                 realmEntity?.let { list ->
-                    emitter.onNext(ListMoviesConverter.entityToModel(list))
+                    emitter.onNext(ListMoviesStorageConverter.entityToModel(list))
                 } ?: emitter.onError(Throwable("GWHomeCarouselsStorage: Element is null"))
             }
             realm.close()
@@ -69,13 +66,13 @@ class MoviesListStorage(val context: Context) : IDao<ListMoviesModel> {
                                             RealmList()
                                         movieModel.results.forEach {
                                             movieRealmList.add(
-                                                rlm.createObject(MovieRawConverter.modelToEntity(it))
+                                                rlm.createObject(MovieRawStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         results =
                                             rlm.copyToRealm(movieRealmList) as RealmList<MovieRawRealmEntity>
                                         dates =
-                                            rlm.copyToRealm(DatesConverter.modelToEntity(movieModel.dates))
+                                            rlm.copyToRealm(DatesStorageConverter.modelToEntity(movieModel.dates))
                                     }
                             }
 
@@ -91,7 +88,7 @@ class MoviesListStorage(val context: Context) : IDao<ListMoviesModel> {
         return Observable.create { emitter ->
             val realm = RealmCore.getRxInstance(context)
             realm.executeTransaction { rlm ->
-                rlm.copyToRealmOrUpdate(ListMoviesConverter.modelToEntity(model))
+                rlm.copyToRealmOrUpdate(ListMoviesStorageConverter.modelToEntity(model))
             }
 
             realm.close()

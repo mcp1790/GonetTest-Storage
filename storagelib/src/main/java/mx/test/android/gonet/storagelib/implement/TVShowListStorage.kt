@@ -2,21 +2,17 @@ package mx.test.android.gonet.storagelib.implement
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.realm.RealmList
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
-import mx.test.android.gonet.domainlib.models.ListMoviesModel
 import mx.test.android.gonet.domainlib.models.ListTvShowsModel
-import mx.test.android.gonet.domainlib.models.MovieRawModel
 import mx.test.android.gonet.storagelib.converter.*
 import mx.test.android.gonet.storagelib.entity.ListMoviesRealmEntity
 import mx.test.android.gonet.storagelib.entity.ListTvShowsRealmEntity
 import mx.test.android.gonet.storagelib.entity.MovieRawRealmEntity
 import mx.test.android.gonet.storagelib.realmConfig.RealmCore
-import java.lang.Exception
 
 @SuppressLint("CheckResult")
 class TVShowListStorage(val context: Context) : IDao<ListTvShowsModel> {
@@ -29,7 +25,7 @@ class TVShowListStorage(val context: Context) : IDao<ListTvShowsModel> {
                     rlm.where<ListTvShowsRealmEntity>().equalTo("page", id).findFirst()
 
                 realmEntity?.let { list ->
-                    emitter.onNext(ListTvShowConverter.entityToModel(list))
+                    emitter.onNext(ListTvShowStorageConverter.entityToModel(list))
                 } ?: emitter.onError(Throwable("GWHomeCarouselsStorage: Element is null"))
             }
             realm.close()
@@ -69,7 +65,7 @@ class TVShowListStorage(val context: Context) : IDao<ListTvShowsModel> {
                                             RealmList()
                                         tvModel.results.forEach {
                                             movieRealmList.add(
-                                                rlm.createObject(TvShowRawConverter.modelToEntity(it))
+                                                rlm.createObject(TvShowRawStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         results =
@@ -89,7 +85,7 @@ class TVShowListStorage(val context: Context) : IDao<ListTvShowsModel> {
         return Observable.create { emitter ->
             val realm = RealmCore.getRxInstance(context)
             realm.executeTransaction { rlm ->
-                rlm.copyToRealmOrUpdate(ListTvShowConverter.modelToEntity(model))
+                rlm.copyToRealmOrUpdate(ListTvShowStorageConverter.modelToEntity(model))
             }
 
             realm.close()

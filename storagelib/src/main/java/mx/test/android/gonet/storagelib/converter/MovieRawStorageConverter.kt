@@ -2,23 +2,21 @@ package mx.test.android.gonet.storagelib.converter
 
 import io.realm.RealmList
 import mx.test.android.gonet.domainlib.models.MovieRawModel
-import mx.test.android.gonet.domainlib.models.child.GenreModel
-import mx.test.android.gonet.servicelib.converters.IConverter
-import mx.test.android.gonet.storagelib.entity.GenresRealmEntity
+import mx.test.android.gonet.servicelib.converters.IStorageConverter
 import mx.test.android.gonet.storagelib.entity.MovieRawRealmEntity
 import mx.test.android.gonet.storagelib.entity.child.GenreRealmEntity
 import mx.test.android.gonet.storagelib.entity.child.ProductionCompanyRealmEntity
 import mx.test.android.gonet.storagelib.entity.child.ProductionCountryRealmEntity
 import mx.test.android.gonet.storagelib.entity.child.SpokenLanguageRealmEntity
 
-object MovieRawConverter : IConverter<MovieRawRealmEntity, MovieRawModel> {
+object MovieRawStorageConverter : IStorageConverter<MovieRawRealmEntity, MovieRawModel> {
     override fun entityToModel(entityIn: MovieRawRealmEntity?): MovieRawModel {
         return entityIn?.let { entity ->
             MovieRawModel(
                 adult = entity.adult,
                 backdropPath = entity.backdrop_path,
                 budget = entity.budget,
-                genres = entity.genres.map { GenreConverter.entityToModel(it) },
+                genres = entity.genres.map { GenreStorageConverter.entityToModel(it) },
                 homepage = entity.homepage,
                 id = entity.id,
                 imdbId = entity.imdb_id,
@@ -28,16 +26,16 @@ object MovieRawConverter : IConverter<MovieRawRealmEntity, MovieRawModel> {
                 popularity = entity.popularity,
                 posterPath = entity.poster_path,
                 productionCompanies = entity.production_companies.map {
-                    ProductionCompanyConverter.entityToModel(it)
+                    ProductionCompanyStorageConverter.entityToModel(it)
                 },
                 productionCountries = entity.production_countries.map {
-                    ProductionCountryConverter.entityToModel(it)
+                    ProductionCountryStorageConverter.entityToModel(it)
                 },
                 releaseDate = entity.release_date,
                 revenue = entity.revenue,
                 runtime = entity.runtime,
                 spokenLanguages = entity.spoken_languages.map {
-                    SpokenLanguagesConverter.entityToModel(it)
+                    SpokenLanguagesStorageConverter.entityToModel(it)
                 },
                 status = entity.status,
                 tagline = entity.tagline,
@@ -56,7 +54,7 @@ object MovieRawConverter : IConverter<MovieRawRealmEntity, MovieRawModel> {
             budget = modelIn.budget
             val genreRealmList: RealmList<GenreRealmEntity> = RealmList()
             modelIn.genres.forEach {
-                genreRealmList.add(GenreConverter.modelToEntity(it))
+                genreRealmList.add(GenreStorageConverter.modelToEntity(it))
             }
             genres = genreRealmList
             homepage = modelIn.homepage
@@ -69,12 +67,12 @@ object MovieRawConverter : IConverter<MovieRawRealmEntity, MovieRawModel> {
             poster_path = modelIn.posterPath
             val companiesRealmList: RealmList<ProductionCompanyRealmEntity> = RealmList()
             modelIn.productionCompanies.forEach {
-                companiesRealmList.add(ProductionCompanyConverter.modelToEntity(it))
+                companiesRealmList.add(ProductionCompanyStorageConverter.modelToEntity(it))
             }
             production_companies = companiesRealmList
             val countriesRealmList: RealmList<ProductionCountryRealmEntity> = RealmList()
             modelIn.productionCountries.forEach {
-                countriesRealmList.add(ProductionCountryConverter.modelToEntity(it))
+                countriesRealmList.add(ProductionCountryStorageConverter.modelToEntity(it))
             }
             production_countries = countriesRealmList
             release_date = modelIn.releaseDate
@@ -82,7 +80,7 @@ object MovieRawConverter : IConverter<MovieRawRealmEntity, MovieRawModel> {
             runtime = modelIn.runtime
             val languagesRealmList: RealmList<SpokenLanguageRealmEntity> = RealmList()
             modelIn.spokenLanguages.forEach {
-                languagesRealmList.add(SpokenLanguagesConverter.modelToEntity(it))
+                languagesRealmList.add(SpokenLanguagesStorageConverter.modelToEntity(it))
             }
             spoken_languages = languagesRealmList
             status = modelIn.status

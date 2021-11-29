@@ -2,24 +2,17 @@ package mx.test.android.gonet.storagelib.implement
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.realm.RealmList
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
-import mx.test.android.gonet.domainlib.models.ListMoviesModel
-import mx.test.android.gonet.domainlib.models.ListTvShowsModel
-import mx.test.android.gonet.domainlib.models.MovieRawModel
 import mx.test.android.gonet.domainlib.models.TvShowDetailModel
 import mx.test.android.gonet.storagelib.converter.*
-import mx.test.android.gonet.storagelib.entity.ListMoviesRealmEntity
 import mx.test.android.gonet.storagelib.entity.ListTvShowsRealmEntity
-import mx.test.android.gonet.storagelib.entity.MovieRawRealmEntity
 import mx.test.android.gonet.storagelib.entity.TvShowDetailRealmEntity
 import mx.test.android.gonet.storagelib.entity.child.*
 import mx.test.android.gonet.storagelib.realmConfig.RealmCore
-import java.lang.Exception
 
 @SuppressLint("CheckResult")
 class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
@@ -32,7 +25,7 @@ class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
                     rlm.where<TvShowDetailRealmEntity>().equalTo("id", id).findFirst()
 
                 realmEntity?.let { list ->
-                    emitter.onNext(TvShowDetailConverter.entityToModel(list))
+                    emitter.onNext(TvShowDetailStorageConverter.entityToModel(list))
                 } ?: emitter.onError(Throwable("GWHomeCarouselsStorage: Element is null"))
             }
             realm.close()
@@ -70,7 +63,7 @@ class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
                                         val createdByRealmList: RealmList<CreatedByRealmEntity> = RealmList()
                                         tvModel.createdBy.forEach {
                                             createdByRealmList.add(
-                                                rlm.createObject(CreatedByConverter.modelToEntity(it))
+                                                rlm.createObject(CreatedByStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         created_by = createdByRealmList
@@ -85,7 +78,7 @@ class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
                                         val genreRealmList: RealmList<GenreRealmEntity> = RealmList()
                                         tvModel.genres.forEach {
                                             genreRealmList.add(
-                                                rlm.createObject(GenreConverter.modelToEntity(it))
+                                                rlm.createObject(GenreStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         genres = genreRealmList
@@ -99,12 +92,12 @@ class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
                                         }
                                         languages = languagesRealmList
                                         lastA_air_date = tvModel.lastAirDate
-                                        last_episode_to_air = rlm.copyToRealm(LastEpisodeOnAirConverter.modelToEntity(tvModel.lastEpisodeToAir))
+                                        last_episode_to_air = rlm.copyToRealm(LastEpisodeOnAirStorageConverter.modelToEntity(tvModel.lastEpisodeToAir))
                                         name = tvModel.name
                                         val networkRealmList: RealmList<NetworkRealmEntity> = RealmList()
                                         tvModel.networks.forEach {
                                             networkRealmList.add(
-                                                rlm.createObject(NetworkModelConverter.modelToEntity(it))
+                                                rlm.createObject(NetworkStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         networks = networkRealmList
@@ -125,28 +118,28 @@ class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
                                         val prodCompaniesRealmList: RealmList<ProductionCompanyRealmEntity> = RealmList()
                                         tvModel.productionCompanies.forEach {
                                             prodCompaniesRealmList.add(
-                                                rlm.createObject(ProductionCompanyConverter.modelToEntity(it))
+                                                rlm.createObject(ProductionCompanyStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         production_companies = prodCompaniesRealmList
                                         val prodCountriesRealmList: RealmList<ProductionCountryRealmEntity> = RealmList()
                                         tvModel.productionCompanies.forEach {
                                             prodCountriesRealmList.add(
-                                                rlm.createObject(ProductionCompanyConverter.modelToEntity(it))
+                                                rlm.createObject(ProductionCompanyStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         production_countries = prodCountriesRealmList
                                         val seasonsRealmList: RealmList<SeasonRealmEntity> = RealmList()
                                         tvModel.seasons.forEach {
                                             seasonsRealmList.add(
-                                                rlm.createObject(SeasonConverter.modelToEntity(it))
+                                                rlm.createObject(SeasonStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         seasons = seasonsRealmList
                                         val spokenLanguagesRealmList: RealmList<SpokenLanguageRealmEntity> = RealmList()
                                         tvModel.spokenLanguages.forEach {
                                             spokenLanguagesRealmList.add(
-                                                rlm.createObject(SpokenLanguagesConverter.modelToEntity(it))
+                                                rlm.createObject(SpokenLanguagesStorageConverter.modelToEntity(it))
                                             )
                                         }
                                         spoken_languages = spokenLanguagesRealmList
@@ -170,7 +163,7 @@ class TVShowDetailsStorage(val context: Context) : IDao<TvShowDetailModel> {
         return Observable.create { emitter ->
             val realm = RealmCore.getRxInstance(context)
             realm.executeTransaction { rlm ->
-                rlm.copyToRealmOrUpdate(TvShowDetailConverter.modelToEntity(model))
+                rlm.copyToRealmOrUpdate(TvShowDetailStorageConverter.modelToEntity(model))
             }
 
             realm.close()
